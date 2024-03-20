@@ -30,5 +30,11 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem('token', response.token);
       await router.push('/');
     },
+    async logout() {
+      this.isAuth = false;
+      localStorage.setItem('auth', 'false');
+      localStorage.removeItem('token');
+      await router.push('/login');
+    },
   },
 });
