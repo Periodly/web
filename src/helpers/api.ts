@@ -34,7 +34,11 @@ async function api<T>(
     if (res.ok) {
       const end = Date.now();
       toast.info(`API ${method} ${endpoint} ${end - start}ms`);
-      return res.json();
+      if (res.headers.get('Content-Type')?.includes('json')) {
+        return await res.json();
+      } else {
+        return await res.text();
+      }
     }
     if (res.status == 401) {
       if (endpoint === 'session/login') toast.error('Nieprawidłowy login lub hasło.');
