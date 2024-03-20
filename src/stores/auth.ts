@@ -33,10 +33,11 @@ export const useAuthStore = defineStore('auth', {
       await router.push('/');
     },
     async register(username: string, password: string) {
-      await apiInstance.post<never>('user', false, {
+      const response = await apiInstance.post<string>('user', false, {
         username: username,
         password: password,
       });
+      if (!response) return;
       showToast('Zarejestrowano pomyślnie', TYPE.SUCCESS);
     },
     async logout() {
