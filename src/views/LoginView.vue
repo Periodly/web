@@ -64,6 +64,7 @@ const formSubmit = () => {
     authStore.login(username.value, password.value);
   } else {
     if (password.value !== repeatedPassword.value) return;
+    authStore.register(username.value, password.value);
   }
   username.value = '';
   password.value = '';
