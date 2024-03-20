@@ -31,13 +31,6 @@ async function api<T>(
     headers['Authorization'] = token ? `Bearer ${localStorage.getItem('token')}` : '';
   };
 
-  const handleForceLogout = () => {
-    toast.error('Twoja sesja wygasła, zaloguj się ponownie.');
-    localStorage.setItem('auth', 'false');
-    localStorage.setItem('user', '');
-    router.push('/login').then(() => window.location.reload());
-  };
-
   const handleResponse = async (res: Response): Promise<any> => {
     if (res.ok) {
       const end = Date.now();
@@ -45,7 +38,7 @@ async function api<T>(
       return res.json();
     }
     if (res.status == 401) {
-      if (endpoint === 'login') toast.error('Nieprawidłowy login lub hasło.');
+      if (endpoint === 'session/login') toast.error('Nieprawidłowy login lub hasło.');
       return Promise.reject('Unauthorized');
     }
     const response = await res.json();
