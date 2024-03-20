@@ -3,7 +3,7 @@
     class="h-screen w-screen flex justify-center items-center bg-[url('../assets/bg-2.jpg')] bg-center bg-cover"
   >
     <form
-      @submit.prevent="login"
+      @submit.prevent="formSubmit"
       class="flex flex-col gap-3 bg-white/30 p-5 rounded-2xl backdrop-blur-xl shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]"
     >
       <h1 class="text-2xl font-semibold">
@@ -50,17 +50,23 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
 
 const isLogin = ref(true);
 const username = ref('');
 const password = ref('');
 const repeatedPassword = ref('');
 
-const login = () => {
-  // call to api
-};
-
-const register = () => {
-  // call to api
+const formSubmit = () => {
+  if (isLogin.value) {
+    authStore.login(username.value, password.value);
+  } else {
+    if (password.value !== repeatedPassword.value) return;
+  }
+  username.value = '';
+  password.value = '';
+  repeatedPassword.value = '';
 };
 </script>
