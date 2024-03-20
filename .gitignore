@@ -31,3 +31,5 @@ coverage
 
 yarn.lock
 package-lock.json
+
+.env
