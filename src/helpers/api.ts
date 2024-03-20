@@ -1,4 +1,3 @@
-import router from '@/router';
 import { useToast } from 'vue-toastification';
 
 const url = import.meta.env.VITE_API_URL;
