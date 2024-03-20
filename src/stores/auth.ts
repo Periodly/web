@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { apiInstance } from '@/helpers/api';
 import router from '@/router';
+import { showToast } from '@/helpers/showToast';
+import { TYPE } from 'vue-toastification';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -29,6 +31,13 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem('auth', 'true');
       localStorage.setItem('token', response.token);
       await router.push('/');
+    },
+    async register(username: string, password: string) {
+      await apiInstance.post<never>('user', false, {
+        username: username,
+        password: password,
+      });
+      showToast('Zarejestrowano pomyślnie', TYPE.SUCCESS);
     },
     async logout() {
       this.isAuth = false;
