@@ -13,7 +13,7 @@
       </button>
     </div>
     <div class="flex flex-col gap-2">
-      <p v-if="moodList.length === 0" class="text-center">You have no moods</p>
+      <p v-if="!moodList || moodList.length === 0" class="text-center">You have no moods</p>
       <MoodCard v-for="mood in moodList" :key="mood.id" :mood="mood" />
     </div>
   </div>
@@ -24,7 +24,7 @@ import type Mood from '@/models/mood.model';
 import MoodCard from '@/components/MoodCard.vue';
 import { PlusIcon } from 'lucide-vue-next';
 
-defineProps<{ moodList: Mood[] }>();
+defineProps<{ moodList: Mood[] | undefined }>();
 defineEmits<{
   addMood: [];
 }>();
