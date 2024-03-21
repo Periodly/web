@@ -2,7 +2,7 @@
   <div
     class="flex flex-col gap-3 bg-white/30 p-5 rounded-2xl backdrop-blur-xl shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]"
   >
-    <div class="flex justify-between">
+    <div class="flex gap-3 justify-between">
       <h2 class="font-medium text-xl">Moods</h2>
       <button
         class="flex items-center gap-1 hover:scale-105 transition-all duration-150 focus:font-medium"
