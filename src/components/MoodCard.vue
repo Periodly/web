@@ -1,6 +1,6 @@
 <template>
   <div class="flex bg-white/30 rounded-xl">
-    <div class="flex flex-col overflow-hidden rounded-xl">
+    <div class="flex flex-col justify-between overflow-hidden rounded-xl">
       <BlobImage :mood="mood.mood" class="p-5" />
       <div class="bg-white/50 backdrop-blur-2xl p-5">
         <p class="">{{ new Date(mood.date).toLocaleString() }}</p>

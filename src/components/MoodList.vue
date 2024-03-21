@@ -12,7 +12,7 @@
         Add Mood
       </button>
     </div>
-    <div class="flex flex-col gap-2">
+    <div class="flex gap-2">
       <p v-if="!moodList || moodList.length === 0" class="text-center">You have no moods</p>
       <MoodCard v-for="mood in moodList" :key="mood.id" :mood="mood" />
     </div>
