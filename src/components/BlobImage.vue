@@ -12,7 +12,7 @@ import sadBlob from '@/assets/moods/sadBlob.webp';
 import stressedBlob from '@/assets/moods/stressedBlob.webp';
 import tiredBlob from '@/assets/moods/tiredBlob.webp';
 
-type MoodString =
+export type MoodString =
   | 'angry'
   | 'excited'
   | 'happy'

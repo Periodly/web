@@ -4,12 +4,12 @@
   >
     <h2 class="font-medium text-xl">Friends</h2>
     <div class="flex flex-col gap-2">
-      <p v-if="friendList.length === 0" class="text-center">You have no friends</p>
+      <p v-if="!friendList || friendList.length === 0" class="text-center">You have no friends</p>
       <p v-for="friend in friendList" :key="friend">{{ friend }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{ friendList: string[] }>();
+defineProps<{ friendList: string[] | undefined }>();
 </script>

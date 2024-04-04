@@ -6,8 +6,9 @@
       <UserInfo />
       <FriendList :friendList="friendList" />
     </div>
-    <MoodList :moodList="moodList" />
+    <MoodList :moodList="moodList" @add-mood="showMoodModal" />
   </div>
+  <AddMoodModal v-if="showModal" @close-modal="showMoodModal" />
 </template>
 
 <script setup lang="ts">
@@ -17,9 +18,18 @@ import UserInfo from '@/components/UserInfo.vue';
 import FriendList from '@/components/FriendList.vue';
 import type Mood from '@/models/mood.model';
 import MoodList from '@/components/MoodList.vue';
+import AddMoodModal from '@/components/AddMoodModal.vue';
 
-const friendList = ref<string[]>([]);
-const moodList = ref<Mood[]>([]);
+const friendList = ref<string[] | undefined>([]);
+const moodList = ref<Mood[] | undefined>([]);
+const showModal = ref(false);
+
+const fetchMoods = async () => {
+  const response = await apiInstance.get<{
+    moods: Mood[];
+  }>('mood', true);
+  moodList.value = response!.moods;
+};
 
 onMounted(async () => {
   const friendsResponse = await apiInstance.get<{
@@ -27,9 +37,11 @@ onMounted(async () => {
   }>('friends', true);
   friendList.value = friendsResponse!.friends;
 
-  const moodResponse = await apiInstance.get<{
-    moods: Mood[];
-  }>('mood', true);
-  moodList.value = moodResponse!.moods;
+  await fetchMoods();
 });
+
+const showMoodModal = async () => {
+  showModal.value = !showModal.value;
+  await fetchMoods();
+};
 </script>
