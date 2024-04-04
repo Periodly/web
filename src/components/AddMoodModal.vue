@@ -14,7 +14,7 @@
           class="flex flex-col gap-2 items-center justify-center rounded-xl hover:bg-black/20 p-3 transition-all duration-150 cursor-pointer"
           @click="pickMood(mood)"
         >
-          <BlobImage :mood="mood" class="w-24" />
+          <BlobImage :mood="mood as MoodString" class="w-24" />
           <p class="text-black font-medium text-center">{{ mood }}</p>
         </div>
       </div>
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { apiInstance } from '@/helpers/api';
-import BlobImage from '@/components/BlobImage.vue';
+import BlobImage, { type MoodString } from '@/components/BlobImage.vue';
 import { showToast } from '@/helpers/showToast';
 import { TYPE } from 'vue-toastification';
 
