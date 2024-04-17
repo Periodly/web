@@ -10,9 +10,14 @@
       <p class="font-medium text-xl">{{ getUsername() }}</p>
     </div>
   </div>
+  <button
+    class="py-2 px-5 text-lg font-medium bg-white/50 hover:bg-white/70 active:bg-white/90 rounded-lg transition-all duration-300 active:scale-95 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+    @click="$emit('startCycle')"
+  >
+    Nowy cykl
+  </button>
 </template>
 
 <script setup lang="ts">
 import { getUsername, hasAdminAccess } from '@/helpers/jwtDecoder';
-import { User } from 'lucide-vue-next';
 </script>

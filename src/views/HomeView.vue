@@ -3,7 +3,7 @@
     class="h-screen w-screen gap-5 flex justify-center items-center bg-[url('../assets/bg-gradient.png')] bg-cover"
   >
     <div class="flex flex-col gap-5">
-      <UserInfo />
+      <UserInfo @start-cycle="startNewCycle" />
       <FriendList :friendList="friendList" />
     </div>
     <PeriodInfo :period="periodCycleInfo!" :beastInfo="beastInfo!" />
@@ -49,4 +49,14 @@ onMounted(async () => {
   console.log(periodCycleInfo.value);
   console.log(friendList.value);
 });
+
+const startNewCycle = async () => {
+  await apiInstance.post('period/new-cycle', true, {
+    from: new Date().toISOString(),
+  });
+  const periodCycleRes = await apiInstance.get<
+    PeriodModel
+  >('period/current', true);
+  periodCycleInfo.value = periodCycleRes ? periodCycleRes : {} as PeriodModel;
+};
 </script>

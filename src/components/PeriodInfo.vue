@@ -81,7 +81,7 @@ const getPeriodCyclePhase = (start: string | number) => {
 const getPeriodPhaseForBoth = () => {
   if (!props.period) return 'Brak informacji';
   const myPhase = getPeriodCyclePhase(props.period?.periodCycleInfo.from);
-  if (props.beastInfo == {} as BeastModel) return myPhase
+  if (!props.beastInfo?.cycleDay) return myPhase;
   const beastPhase = getPeriodCyclePhase(props.beastInfo?.cycleDay);
 
   if (myPhase === beastPhase) return myPhase;
