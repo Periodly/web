@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col gap-2 bg-white/30 p-5 rounded-2xl backdrop-blur-xl shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
-    <p class="text-xl font-medium">Dzień {{ getDayNumber(period?.periodCycleInfo.from) }}</p>
-    <p class="text-lg">Przewidywany koniec: {{ new Date(period?.periodCycleInfo.predictedTo).toLocaleDateString() }}</p>
+    <p class="text-xl font-medium">{{ period ? 'Dzień ' + getDayNumber(period?.periodCycleInfo.from) : 'Brak informacji' }}</p>
+    <p class="text-lg">Przewidywany koniec: {{ period ? (new Date(period?.periodCycleInfo.predictedTo).toLocaleDateString()) : "Brak informacji" }}</p>
 
     <p
       class="text-lg font-medium "
       :class="{
-        'bg-gradient-to-r to-[#FF3366] from-[#5e2ecd] inline-block text-transparent bg-clip-text': getPeriodCyclePhase(props.period?.periodCycleInfo.from) === getPeriodCyclePhase(props.beastInfo?.cycleDay),
+        'bg-gradient-to-r to-[#FF3366] from-[#5e2ecd] inline-block text-transparent bg-clip-text': getPeriodCyclePhase(period?.periodCycleInfo.from) === getPeriodCyclePhase(beastInfo?.cycleDay) && period,
       }"
     >
       {{ getPeriodPhaseForBoth() }}
@@ -15,7 +15,7 @@
     <div class="relative h-10 w-[30dvw] bg-white/30 rounded-xl">
       <div
         class="h-full bg-[#FF3366] rounded-l-xl"
-        :style="{ width: `${getCyclePercentage(period?.periodCycleInfo.from, period?.periodCycleInfo.predictedTo)}%` }"
+        :style="{ width: `${period ? getCyclePercentage(period?.periodCycleInfo.from, period?.periodCycleInfo.predictedTo) : 0}%` }"
       />
       <div
         class="top-0 left-0 absolute h-10 bg-[#5e2ecd] rounded-l-xl opacity-50"
@@ -23,7 +23,7 @@
       />
     </div>
     <p
-      v-if="getPeriodCyclePhase(props.period?.periodCycleInfo.from) === getPeriodCyclePhase(props.beastInfo?.cycleDay)"
+      v-if="getPeriodCyclePhase(period?.periodCycleInfo.from) === getPeriodCyclePhase(beastInfo?.cycleDay) && period"
     >
       <span class="font-bold text-[#FF3366]">Ty</span> i <span class="font-bold text-[#5e2ecd]">twoja bestia</span> jesteście zsynchronizowani
     </p>
@@ -79,6 +79,7 @@ const getPeriodCyclePhase = (start: string | number) => {
 };
 
 const getPeriodPhaseForBoth = () => {
+  if (!props.period) return 'Brak informacji';
   const myPhase = getPeriodCyclePhase(props.period?.periodCycleInfo.from);
   if (props.beastInfo == {} as BeastModel) return myPhase
   const beastPhase = getPeriodCyclePhase(props.beastInfo?.cycleDay);
