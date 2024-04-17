@@ -32,10 +32,13 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem('token', response.token);
       await router.push('/');
     },
-    async register(username: string, password: string) {
+    async register(username: string, password: string, cycleLength: number, regularity: boolean, commonSymptom: string) {
       const response = await apiInstance.post<string>('user', false, {
-        username: username,
-        password: password,
+        username,
+        password,
+        cycleLength,
+        regularity,
+        mostCommonSymptom: commonSymptom
       });
       if (!response) return;
       showToast('Zarejestrowano pomyślnie', TYPE.SUCCESS);
